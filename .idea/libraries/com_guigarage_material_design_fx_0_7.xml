@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="com.guigarage:material-design-fx:0.7" type="repository">
+    <properties maven-id="com.guigarage:material-design-fx:0.7" />
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/guigarage/material-design-fx/0.7/material-design-fx-0.7.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/guigarage/controls/0.7/controls-0.7.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/guigarage/css-helper/0.7/css-helper-0.7.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/guigarage/ui-basics/0.7/ui-basics-0.7.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/reactfx/reactfx/1.4/reactfx-1.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import com.guigarage.material.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<?import org.controlsfx.control.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MasterController">
+   <top>
+      <TabPane prefHeight="811.0" prefWidth="1000.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+        <tabs>
+          <Tab fx:id="announcementTab" text="Announcements">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1000.0" prefWidth="1000.0">
+                     <children>
+                        <MasterDetailPane fx:id="masterDetailPane" detailSide="BOTTOM" dividerPosition="0.6" prefHeight="766.0" prefWidth="1000.0" />
+                        <ButtonBar layoutX="914.0" layoutY="467.0" prefHeight="40.0" prefWidth="72.0">
+                          <buttons>
+                            <Button fx:id="addMessage" mnemonicParsing="false" />
+                          </buttons>
+                        </ButtonBar>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab fx:id="departmentTab" text="Departments">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </top>
+   <bottom>
+      <VBox fx:id="popBox" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <ComboBox fx:id="departmentComboBox" prefHeight="27.0" prefWidth="483.0" />
+            <ComboBox fx:id="subDepartmentComboBox" prefHeight="27.0" prefWidth="484.0" />
+            <ComboBox fx:id="intakeComboBox" prefHeight="27.0" prefWidth="484.0" />
+            <TextField fx:id="titleText" prefHeight="27.0" prefWidth="495.0" />
+            <TextArea fx:id="messageTxt" prefHeight="200.0" prefWidth="200.0" />
+            <ButtonBar prefHeight="40.0" prefWidth="200.0">
+              <buttons>
+                  <Button fx:id="resetBtn" mnemonicParsing="false" text="Reset" />
+                <Button fx:id="sendBtn" mnemonicParsing="false" text="Send" />
+              </buttons>
+            </ButtonBar>
+         </children>
+      </VBox>
+   </bottom>
+</BorderPane>
