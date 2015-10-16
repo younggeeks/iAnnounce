@@ -19,11 +19,11 @@ public class DepartmentsManager {
 
     public List<Department> getDepartments(){
         List<Department> departments=new ArrayList<>();
-        departments.add(new Department("Select Department"));
         departments.add(new Department("Health Science"));
         departments.add(new Department("Bussiness Administration"));
         departments.add(new Department("Law"));
         departments.add(new Department("Distance Learning"));
+        departments.add(new Department("Computer"));
 
         return departments;
     }

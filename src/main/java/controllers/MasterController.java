@@ -74,7 +74,7 @@ public class MasterController implements Initializable {
     @FXML
     private ComboBox<Intake>  intakeComboBox;
     @FXML
-    private ComboBox<SubDepartment> subDepartmentComboBox;
+    private ComboBox<Course> courseComboBox;
     @FXML
     private ComboBox<Department> departmentComboBox;
     private ObservableList<Department> departments;
@@ -186,12 +186,86 @@ imageNewMsg=new Image(getClass().getClassLoader().getResourceAsStream("images/ne
     public void setDepartments(){
         departments= FXCollections.observableArrayList();
         departments.addAll(DepartmentsManager.getInstance().getDepartments());
+        departmentComboBox.setPromptText("---Select Department----");
         departmentComboBox.setItems(departments);
         departmentComboBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Department>() {
             @Override
             public void changed(ObservableValue<? extends Department> observable, Department oldValue, Department newValue) {
-                System.out.println(newValue.getDepartmentName());
 
+
+                switch (newValue.getDepartmentName()){
+                    case "Computer":
+                        System.out.println("Computer department Selected");
+                        courseComboBox.setItems(CoursesManager.getInstance().getComputerCourses());
+                        courseComboBox.setPromptText("---Select Course----");
+                        intakeComboBox.setItems(CoursesManager.getInstance().getIntakes());
+                        intakeComboBox.setPromptText("----Select Intake----");
+                        break;
+                    case "Health Science":
+                        courseComboBox.setItems(CoursesManager.getInstance().getShsCourses());
+                        courseComboBox.setPromptText("---Select Course----");
+                        intakeComboBox.setItems(CoursesManager.getInstance().getIntakes());
+
+                        intakeComboBox.setPromptText("----Select Intake----");
+                        break;
+                }
+
+            }
+        });
+        courseComboBox.setCellFactory(
+                (comboBox)->{
+                    return  new ListCell<Course>(){
+
+                        @Override
+                        protected void updateItem(Course item, boolean empty) {
+                            super.updateItem(item, empty);
+
+                            if (item==null || empty){
+                                setText(null);
+                            }else {
+                                setText(item.getName());
+                            }
+                        }
+
+                    };
+                }
+        );
+        intakeComboBox.setCellFactory( (comboBox)->{
+            return  new ListCell<Intake>(){
+
+                @Override
+                protected void updateItem(Intake item, boolean empty) {
+                    super.updateItem(item, empty);
+
+                    if (item==null || empty){
+                        setText(null);
+                    }else {
+                        setText(item.getName());
+                    }
+                }
+
+            };
+        });
+        intakeComboBox.setConverter(new StringConverter<Intake>() {
+            @Override
+            public String toString(Intake object) {
+                return object.getName();
+            }
+
+            @Override
+            public Intake fromString(String string) {
+                return null;
+            }
+        });
+        courseComboBox.setConverter(new StringConverter<Course>() {
+            @Override
+            public String toString(Course object) {
+                return object.getName();
+            }
+
+            @Override
+            public Course fromString(String string) {
+                return null;
             }
         });
         departmentComboBox.setCellFactory((comboBox)->{
