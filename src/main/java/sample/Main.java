@@ -21,12 +21,12 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
-      launch(args);
+        // launch(args);
 //
 //        String username="samjunior";
 //        String apiKey="73d6810ff78322bf919ab5b3874f7ed34c1e3910ff00a0f16b04e97f4c0e59e8";
 //
-//        //receipients
+//       // receipients
 //        String receipients="+255714095262";
 //
 //
@@ -51,5 +51,8 @@ public class Main extends Application {
 //
 //
 //    }
+
+
+    }
 }
-}
+
