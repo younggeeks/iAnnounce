@@ -17,6 +17,7 @@ public class DepartmentsManager {
     }
 
 
+    //this
     public List<Department> getDepartments(){
         List<Department> departments=new ArrayList<>();
         departments.add(new Department("Health Science"));
