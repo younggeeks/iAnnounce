@@ -27,6 +27,7 @@ import org.controlsfx.control.PopOver;
 
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 /**
@@ -40,7 +41,7 @@ public class MasterController implements Initializable {
     private TableView<Message> masterTable;
     private TableColumn<Message,Number> indexCol;
     private TableColumn<Message,String> titleCol;
-    private TableColumn<Message,String> sentDateCol;
+    private TableColumn<Message,LocalDate> sentDateCol;
     private TableColumn<Message,String> messageCol;
     private TableColumn<Message,String> sentByCol;
     private TableColumn<Message,String> sentToCol;
@@ -162,6 +163,7 @@ imageNewMsg=new Image(getClass().getClassLoader().getResourceAsStream("images/ne
         messageCol.setCellValueFactory(data -> data.getValue().bodyProperty());
         sentToCol.setCellValueFactory(data -> data.getValue().recepientProperty());
         sentByCol.setCellValueFactory(data -> data.getValue().senderProperty());
+        sentDateCol.setCellValueFactory(data->data.getValue().dateProperty());
 
         setDetailsValue(null);
         masterTable.getSelectionModel().selectedItemProperty().addListener((
