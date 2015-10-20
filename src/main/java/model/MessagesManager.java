@@ -9,6 +9,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import services.HttpService;
 
+import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -18,6 +19,8 @@ import java.util.List;
  * Created by samjunior on 10/8/15.
  */
 public class MessagesManager {
+    HttpService service=new HttpService();
+    String status;
 
     public ObservableList<Message> messages= FXCollections.observableArrayList();
     private static MessagesManager ourInstance = new MessagesManager();
@@ -31,7 +34,6 @@ public class MessagesManager {
 
     public ObservableList<Message> getMessages(){
 
-        HttpService service=new HttpService();
 
         JSONArray arr;
 
@@ -47,7 +49,6 @@ public class MessagesManager {
                 JSONObject userArray=new JSONObject();
 
                 for (int i=0;i<arr.length();i++){
-
                     JSONObject c=arr.getJSONObject(i);
                     userArray=c.getJSONObject("user");
                     Message message=new Message();
@@ -58,7 +59,6 @@ public class MessagesManager {
                     message.setSender(userArray.getString("name"));
                     messages.add(message);
                 }
-                //arr=jsonObject.getJSONArray();
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -69,5 +69,24 @@ public class MessagesManager {
         }
         return messages;
     }
+    public String sendSms(String course, String intake,String title, String message ) {
+
+        String jsonString=service.serviceGet("messages/send/"+course+"/"+intake+"/"+title+"/"+message);
+
+        System.out.println(jsonString);
+
+
+//        String response= null;
+//        try {
+//            response = new JSONObject(jsonString).getString("response");
+//            System.out.println(response);
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+
+        return "hey";
+
+    }
 
 }
+

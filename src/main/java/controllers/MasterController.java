@@ -22,8 +22,7 @@ import javafx.util.StringConverter;
 import model.*;
 import org.controlsfx.control.MasterDetailPane;
 import org.controlsfx.control.PopOver;
-
-
+import org.json.JSONException;
 
 
 import java.net.URL;
@@ -87,6 +86,11 @@ public class MasterController implements Initializable {
     private TextArea messageTxt;
 
     private Image imageNewMsg;
+
+    private String intake;
+    private String message;
+    private String course;
+    String taito;
 
 
     public void initialize(URL location, ResourceBundle resources) {
@@ -176,10 +180,26 @@ imageNewMsg=new Image(getClass().getClassLoader().getResourceAsStream("images/ne
     private void sendMessage() {
 
         if (titleText.getText().isEmpty()||messageTxt.getText().isEmpty()){
-            failAlert("Can Not Send (Mpunga Kitenesi)");
+            failAlert("Please fill in all the details");
         }
         else {
-            successAlert();
+            course=departmentComboBox.getSelectionModel().getSelectedItem().getDepartmentName();
+            intake=intakeComboBox.getSelectionModel().getSelectedItem().getName();
+            message=messageTxt.getText();
+           taito=titleText.getText();
+
+
+            String sendingResponse=null;
+
+
+                sendingResponse = MessagesManager.getInstance().sendSms(course, intake, taito, message);
+
+
+            if (!sendingResponse.isEmpty()){
+                successAlert();
+            }else {
+                failAlert("Message was Not Successfully Sent Please Try Again");
+            }
         }
 
     }
@@ -197,7 +217,6 @@ imageNewMsg=new Image(getClass().getClassLoader().getResourceAsStream("images/ne
 
                 switch (newValue.getDepartmentName()){
                     case "Computer":
-                        System.out.println("Computer department Selected");
                         courseComboBox.setItems(CoursesManager.getInstance().getComputerCourses());
                         courseComboBox.setPromptText("---Select Course----");
                         intakeComboBox.setItems(CoursesManager.getInstance().getIntakes());
