@@ -11,6 +11,8 @@ import org.apache.http.message.BasicHeader;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 /**
  * Created by Gaffi on 10/19/15.
@@ -23,6 +25,7 @@ public class HttpService {
     }
 
     public String serviceGet(String url){
+
         String response=null;
 
         try {
@@ -35,11 +38,13 @@ public class HttpService {
             response= EntityUtils.toString(entity);
 
 
+
         } catch (ClientProtocolException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         return response;
 
     }

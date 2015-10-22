@@ -9,6 +9,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import services.HttpService;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -73,8 +79,8 @@ public class MessagesManager {
 
         String jsonString=service.serviceGet("messages/send/"+course+"/"+intake+"/"+title+"/"+message);
 
-        System.out.println(jsonString);
 
+        System.out.println(course+" "+intake+" "+title+" "+message);
 
 //        String response= null;
 //        try {
@@ -84,8 +90,47 @@ public class MessagesManager {
 //            e.printStackTrace();
 //        }
 
-        return "hey";
+        return jsonString;
 
+    }
+
+
+    public JSONArray getJSONFromUrl(String url) {
+        JSONArray jsonArray = null;
+        HttpURLConnection httpURLConnection=null;
+        BufferedReader bufferedReader;
+        StringBuilder stringBuilder;
+        String line;
+        String jsonString=null;
+
+        try {
+            URL u = new URL(url);
+            httpURLConnection = (HttpURLConnection) u.openConnection();
+            httpURLConnection.setRequestMethod("GET");
+            bufferedReader = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
+            stringBuilder = new StringBuilder();
+
+            while ((line = bufferedReader.readLine()) != null) {
+                stringBuilder.append(line + '\n');
+            }
+            jsonString = stringBuilder.toString();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (ProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            httpURLConnection.disconnect();
+        }
+
+        try {
+            jsonArray = new JSONArray(jsonString);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return jsonArray;
     }
 
 }

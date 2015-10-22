@@ -191,15 +191,12 @@ imageNewMsg=new Image(getClass().getClassLoader().getResourceAsStream("images/ne
 
             String sendingResponse=null;
 
+            String url="http://localhost:8888/kiuMessagesApi/public/api/messages/send/"+intake+"/"+course+"/"+taito+"/"+message;
 
-                sendingResponse = MessagesManager.getInstance().sendSms(course, intake, taito, message);
+            System.out.println(url);
+            System.out.println(MessagesManager.getInstance().getJSONFromUrl(url));
 
 
-            if (!sendingResponse.isEmpty()){
-                successAlert();
-            }else {
-                failAlert("Message was Not Successfully Sent Please Try Again");
-            }
         }
 
     }

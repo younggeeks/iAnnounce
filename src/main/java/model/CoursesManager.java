@@ -44,6 +44,7 @@ public class CoursesManager {
     public ObservableList<Intake> getIntakes(){
         ObservableList<Intake> intakes= FXCollections.observableArrayList();
 
+        intakes.add(new Intake("100"));
         intakes.add(new Intake("101"));
         intakes.add(new Intake("202"));
         intakes.add(new Intake("301"));
