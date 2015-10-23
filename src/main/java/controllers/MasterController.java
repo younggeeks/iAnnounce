@@ -20,6 +20,7 @@ import javafx.stage.PopupWindow;
 import javafx.stage.WindowEvent;
 import javafx.util.StringConverter;
 import model.*;
+import org.controlsfx.control.CheckComboBox;
 import org.controlsfx.control.MasterDetailPane;
 import org.controlsfx.control.PopOver;
 import org.json.JSONException;
@@ -53,8 +54,9 @@ public class MasterController implements Initializable {
     private Tab announcementTab;
     @FXML
     private Tab departmentTab;
-    private Image image;
 
+
+    private Image image;
 
     @FXML
     private Button addMessage;
@@ -78,6 +80,11 @@ public class MasterController implements Initializable {
     @FXML
     private ComboBox<Department> departmentComboBox;
     private ObservableList<Department> departments;
+
+    @FXML
+    private CheckComboBox studentsCheckCombo;
+
+
 
     @FXML
     private TextField titleText;
@@ -106,7 +113,11 @@ public class MasterController implements Initializable {
         sendBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                sendMessage();
+                try {
+                    sendMessage();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -158,6 +169,7 @@ imageNewMsg=new Image(getClass().getClassLoader().getResourceAsStream("images/ne
         sentToCol=new TableColumn("To");
         indexCol.setSortable(false);
 
+
         box=new VBox(10);
         box.getChildren().addAll(title,date,messagelbl,sentBy);
         indexCol.setCellValueFactory(column -> new ReadOnlyObjectWrapper<Number>(masterTable.getItems().indexOf(column.getValue())));
@@ -177,13 +189,13 @@ imageNewMsg=new Image(getClass().getClassLoader().getResourceAsStream("images/ne
         masterDetailPane.setDetailNode(box);
           }
 
-    private void sendMessage() {
+    private void sendMessage() throws Exception {
 
         if (titleText.getText().isEmpty()||messageTxt.getText().isEmpty()){
             failAlert("Please fill in all the details");
         }
         else {
-            course=departmentComboBox.getSelectionModel().getSelectedItem().getDepartmentName();
+            course=courseComboBox.getSelectionModel().getSelectedItem().getName();
             intake=intakeComboBox.getSelectionModel().getSelectedItem().getName();
             message=messageTxt.getText();
            taito=titleText.getText();
@@ -191,16 +203,14 @@ imageNewMsg=new Image(getClass().getClassLoader().getResourceAsStream("images/ne
 
             String sendingResponse=null;
 
-            String url="http://localhost:8888/kiuMessagesApi/public/api/messages/send/"+intake+"/"+course+"/"+taito+"/"+message;
+            String uri=MessagesManager.getInstance().sendSms(course,intake,"Geeks",message);
 
-            System.out.println(url);
-            System.out.println(MessagesManager.getInstance().getJSONFromUrl(url));
+           // String url="http://localhost:8888/kiuMessagesApi/public/api/messages/send/"+intake+"/"+course+"/"+taito+"/"+message;
 
 
         }
 
     }
-
 
     public void setDepartments(){
         departments= FXCollections.observableArrayList();
@@ -217,6 +227,7 @@ imageNewMsg=new Image(getClass().getClassLoader().getResourceAsStream("images/ne
                         courseComboBox.setItems(CoursesManager.getInstance().getComputerCourses());
                         courseComboBox.setPromptText("---Select Course----");
                         intakeComboBox.setItems(CoursesManager.getInstance().getIntakes());
+                        studentsCheckCombo=new CheckComboBox<>(StudentsManager.getInstance().getStudents());
                         intakeComboBox.setPromptText("----Select Intake----");
                         break;
                     case "Health Science":

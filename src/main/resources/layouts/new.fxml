@@ -38,7 +38,7 @@
             <ComboBox fx:id="departmentComboBox" prefHeight="27.0" prefWidth="483.0" />
             <ComboBox fx:id="courseComboBox" prefHeight="27.0" prefWidth="484.0" />
             <ComboBox fx:id="intakeComboBox" prefHeight="27.0" prefWidth="484.0" />
-            <TextField fx:id="titleText" prefHeight="27.0" prefWidth="495.0" />
+            <CheckComboBox prefHeight="27.0" prefWidth="483.0"  fx:id="studentsCheckCombo"/>
             <TextArea fx:id="messageTxt" prefHeight="200.0" prefWidth="200.0" />
             <ButtonBar prefHeight="40.0" prefWidth="200.0">
               <buttons>

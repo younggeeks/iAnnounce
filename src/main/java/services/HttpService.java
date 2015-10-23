@@ -26,6 +26,8 @@ public class HttpService {
 
     public String serviceGet(String url){
 
+        System.out.println(baseUrl+url);
+
         String response=null;
 
         try {
